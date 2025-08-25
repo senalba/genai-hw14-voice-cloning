@@ -7,8 +7,8 @@
 
 ## 📂 Project Structure
 ```
-genai-hw16-metrics-evaluation/
-├── requirements.txt
+genai-hw14-voice-cloning/
+├── environment.yml
 ├── voice_cloning_script.py
 ├── data/
 │   ├── input.csv
@@ -22,8 +22,8 @@ genai-hw16-metrics-evaluation/
 
 ## ⚙️ Setup
 ```bash
-cd genai-hw16-metrics-evaluation
-pip install -r requirements.txt
+cd genai-hw14-voice-cloning
+mamba env create -f environment.yml
 ```
 
 ---
