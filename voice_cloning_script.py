@@ -1,11 +1,13 @@
 # voice_cloning_script.py
+
 import argparse
 import json
+import os
+import time
 from pathlib import Path
 
 import pandas as pd
 from TTS.api import TTS
-import time
 
 
 def load_texts(input_file: str) -> list[str]:
@@ -35,7 +37,7 @@ def main(args):
             text=args.text,
             speaker_wav=args.voice,
             language=args.lang,
-            file_path=outdir / "simple.wav",
+            file_path=os.fspath(outdir / "simple.wav"),
         )
 
     # Detailed case: batch from CSV/JSON (if provided)
@@ -48,7 +50,7 @@ def main(args):
                 text=sentence,
                 speaker_wav=args.voice,
                 language=args.lang,
-                file_path=outdir / f"{args.prefix}out_{i:02d}.wav",
+                file_path=os.fspath(outdir / f"{args.prefix}out_{i:02d}.wav"),
             )
             print(f"Done in {time.time() - t0:.2f} sec.")
 

@@ -24,6 +24,8 @@ genai-hw14-voice-cloning/
 ```bash
 cd genai-hw14-voice-cloning
 mamba env create -f environment.yml
+mamba activate voiceclone
+export COQUI_TOS_AGREED=1   # optional, avoids CPML prompt
 ```
 
 ---
