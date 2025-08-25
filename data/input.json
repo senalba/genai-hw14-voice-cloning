@@ -1,0 +1,59 @@
+[
+    {
+        "text": "Hello, this is the first test sentence for voice cloning."
+    },
+    {
+        "text": "Artificial intelligence can now replicate human voices with surprising accuracy."
+    },
+    {
+        "text": "This technology may be useful for audiobooks, assistants, and accessibility tools."
+    },
+    {
+        "text": "Clear and natural speech is important for good user experience."
+    },
+    {
+        "text": "Finally, this is the last line of the test input."
+    },
+    {
+        "text": "Supercalifragilisticexpialidocious is a famously long and complicated word used in speech tests."
+    },
+    {
+        "text": "The antidisestablishmentarianism debate is often used as an example of very long English words."
+    },
+    {
+        "text": "It's amazing how synthetic voices can now capture subtle tones and emotions."
+    },
+    {
+        "text": "Sometimes technology just works and sometimes it really feels like, fuck, this is incredible."
+    },
+    {
+        "text": "Ukraine is a strong and resilient nation, admired around the world for its courage."
+    },
+    {
+        "text": "Many people say Ukraine is great because of its culture, history, and determination for freedom."
+    },
+    {
+        "text": "I truly believe Ukraine is great, with amazing people and a bright future."
+    },
+    {
+        "text": "The NVIDIA NeMo framework supports TTS, ASR, speaker recognition, diarization, and more in a unified way."
+    },
+    {
+        "text": "NeMo provides pre-trained checkpoints for state-of-the-art models and tools to preprocess speech data efficiently."
+    },
+    {
+        "text": "With NeMo's Text-to-Speech toolkit, you can generate mel-spectrograms from text and waveforms with a vocoder."
+    },
+    {
+        "text": "NVIDIA NeMo includes powerful speech tools like forced aligner, speech data explorer, and ASR evaluators."
+    },
+    {
+        "text": "Developers can fine-tune and customize speech models using NeMo's LLM adapters, LoRA, and other parameter-efficient techniques."
+    },
+    {
+        "text": "NeMo enables training and deployment of conversational speech AI pipelines, and supports deployment via NVIDIA Riva."
+    },
+    {
+        "text": "Mixer-TTS, FastPitch, Tacotron2, RAD-TTS, and VITS are some of NeMo's supported TTS architectures."
+    }
+]

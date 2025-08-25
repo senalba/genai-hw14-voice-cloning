@@ -1,53 +1,65 @@
+# voice_cloning_script.py
 import argparse
-import time
-import pandas as pd
 import json
 from pathlib import Path
-from TTS.api import TTS
 
-def load_texts(input_file):
+import pandas as pd
+from TTS.api import TTS
+import time
+
+
+def load_texts(input_file: str) -> list[str]:
     path = Path(input_file)
     if path.suffix == ".csv":
         df = pd.read_csv(path)
-        return df.iloc[:,0].tolist()
-    elif path.suffix == ".json":
+        return df.iloc[:, 0].astype(str).tolist()
+    if path.suffix == ".json":
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        return [item["text"] for item in data]
-    else:
-        raise ValueError("Unsupported file type. Use CSV or JSON.")
+        return [str(item["text"]) for item in data]
+    raise ValueError("Unsupported file type. Use CSV or JSON.")
+
 
 def main(args):
     outdir = Path(args.outdir)
-    outdir.mkdir(exist_ok=True, parents=True)
+    outdir.mkdir(parents=True, exist_ok=True)
 
-    # ініціалізація моделі (multi-speaker + voice cloning)
-    tts = TTS(model_name="tts_models/multilingual/multi-dataset/your_tts", progress_bar=False)
-
-    texts = load_texts(args.input)
-
-    # простий варіант: одне речення
-    tts.tts_to_file(
-        text="Це тестове речення для клонування голосу.",
-        speaker_wav=args.voice,
-        file_path=outdir / "simple.wav"
+    # XTTS-v2: zero-shot cloning, multilingual
+    tts = TTS(
+        model_name="tts_models/multilingual/multi-dataset/xtts_v2", progress_bar=False
     )
 
-    # деталізований варіант: багато речень
-    for i, sentence in enumerate(texts, 1):
-        print(f"Generating {i}/{len(texts)}..")
-        t0 = time.time()
+    # Simple case: one sentence from --text
+    if args.text:
         tts.tts_to_file(
-            text=sentence,
+            text=args.text,
             speaker_wav=args.voice,
-            file_path=outdir / f"out_{i:02d}.wav"
+            language=args.lang,
+            file_path=outdir / "simple.wav",
         )
-        print(f"Done in {time.time() - t0:.2f} sec.")
+
+    # Detailed case: batch from CSV/JSON (if provided)
+    if args.input:
+        texts = load_texts(args.input)
+        for i, sentence in enumerate(texts, 1):
+            print(f"Generating {i}/{len(texts)}..")
+            t0 = time.time()
+            tts.tts_to_file(
+                text=sentence,
+                speaker_wav=args.voice,
+                language=args.lang,
+                file_path=outdir / f"{args.prefix}out_{i:02d}.wav",
+            )
+            print(f"Done in {time.time() - t0:.2f} sec.")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", required=True, help="CSV or JSON with text")
+    parser.add_argument("--input", help="CSV or JSON with a 'text' column/field")
+    parser.add_argument("--text", help="Single sentence for the simple case")
     parser.add_argument("--voice", required=True, help="Path to sample voice .wav")
+    parser.add_argument("--lang", default="en", help="Language code (e.g., en, uk, de)")
     parser.add_argument("--outdir", default="out", help="Output directory")
+    parser.add_argument("--prefix", default="", help="Prefix for output files")
     args = parser.parse_args()
     main(args)

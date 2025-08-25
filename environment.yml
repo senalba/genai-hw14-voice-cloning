@@ -7,8 +7,14 @@ dependencies:
   - pytorch=2.2.2
   - torchaudio=2.2.2
   - ffmpeg
+  - libsndfile
   - llvm-openmp
   - "numpy<2"
+  - pandas
   - pip
   - pip:
       - coqui-tts==0.27.0
+      - "demucs>=4.0.0"
+# optional, auto-accept CPML for Coqui:
+variables:
+  COQUI_TOS_AGREED: "1"
